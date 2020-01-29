@@ -1,0 +1,26 @@
+@RestResource(urlMapping='/Animal/*')
+global with sharing class AnimalsService {
+    @HttpGet
+    global static Animal__c getAnimalByID() {
+         RestRequest request = RestContext.request;
+        // grab the caseId from the end of the URL
+        String caseId = request.requestURI.substring(
+          request.requestURI.lastIndexOf('/')+1);
+        Decimal anId = Decimal.valueOf(caseId);
+        Animal__c result =  [SELECT AnimalId__c, Name__c, Eats__c, Says__c 
+                        FROM Animal__c
+                        WHERE AnimalId__c = :anId];
+        return result;
+    }
+    @HttpPost
+    global static ID createAnimal(String name, String eats,
+        String says) {
+        Animal__c animal = new Animal__c(
+            Name__c=name,
+            Eats__c=eats,
+            Says__c=says);
+        insert animal;
+        return animal.Id;
+    }   
+   
+}
