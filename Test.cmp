@@ -42,9 +42,7 @@
                             Industry
                         </th>
                     </tr>
-                    
 
-                    
                     <aura:iteration items="{!v.expenses}" var="acc">
                     <tr >
                         <td label="Id">
