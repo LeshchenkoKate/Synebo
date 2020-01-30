@@ -1,0 +1,83 @@
+<aura:component description="TestListForm" controller="ExpensesController">
+        <!-- CREATE NEW EXPENSE -->
+    <aura:attribute name="expenses" type="List"/>
+    <aura:attribute name="accname" type="String"/>
+    <div aria-labelledby="newexpenseform">
+        <!-- BOXED AREA -->
+        <h1>Get information about Account</h1>
+        <fieldset class="slds-box slds-theme--default slds-container--small">
+  
+        <!-- CREATE NEW EXPENSE FORM value="{!v.newExpense.Name}-->
+        <form class="slds-form--stacked">          
+            <lightning:input aura:id="expenseform" label="Name"
+                             name="expensename"
+                             value="{!v.accname}"
+                             /> 
+           <lightning:button label="Get information" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.doInit}"/>
+             <div class="table">
+
+			<table >
+                    
+                        <caption>Account information</caption>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Account number
+                        </th>
+                        <th>
+                            Number Of Employees
+                        </th>
+                        <th>
+                            Fax
+                        </th>
+                        <th>
+                            Industry
+                        </th>
+                    </tr>
+                    
+
+                    
+                    <aura:iteration items="{!v.expenses}" var="acc">
+                    <tr >
+                        <td label="Id">
+                            {!acc.Id}
+                        </td>
+                        <td label="Name">
+                            {!acc.Name}
+                        </td>
+
+                        <td label="Account Number">
+                            {!acc.AccountNumber}
+                        </td>
+                        <td label="Number Of Employees">
+                            {!acc.NumberOfEmployees}
+                        </td>
+                        <td label="Fax">
+                            {!acc.Fax}
+                        </td>
+                        <td label="Industry">
+                            {!acc.Industry}
+                        </td>
+
+                    </tr>
+                    </aura:iteration>
+                    
+                </table>
+            </div>
+            
+        </form>
+        <!-- / CREATE NEW EXPENSE FORM -->
+  
+      </fieldset>
+      <!-- / BOXED AREA -->
+    </div>
+    <!-- / CREATE NEW EXPENSE -->
+</aura:component>
