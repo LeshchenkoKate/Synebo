@@ -4,14 +4,20 @@ global class BatchForUpdateTrain implements Database.Batchable<sObject>, Databas
     global Decimal allCount = 0;
     global Database.QueryLocator start(Database.BatchableContext bc) {
         return Database.getQueryLocator(
-            'select id, Number__c, CountOfRailwayCarriages__c (select id from Railway_carriages__r) from Train__c'
+            'select id, Number__c, CountOfRailwayCarriages__c from Train__c'
         );
     }
     
      global void execute(Database.BatchableContext bc, List<Train__c> scope){
-         
+         List<Railway_carriage__c> carriages = [select id, Railway_carriage_Train__c from Railway_carriage__c where Railway_carriage_Train__c in :scope]; 
          for (Train__c train : scope) {
-                train.CountOfRailwayCarriages__c = train.Railway_carriages__r.size();
+             Integer count =0;
+             for(Railway_carriage__c carr: carriages){
+                 if(carr.Railway_carriage_Train__c == train.Id){
+                     ++count;
+                 }
+             }
+             train.CountOfRailwayCarriages__c = count;
                 allCount =+ train.CountOfRailwayCarriages__c;
                 // increment the instance member counter
                 recordsProcessed = recordsProcessed + 1;
