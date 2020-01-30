@@ -2,14 +2,14 @@ public with sharing class ExpensesController {
     // STERN LECTURE ABOUT WHAT'S MISSING HERE COMING SOON
     
     @AuraEnabled
-    public static List<Account> getExpenses(String accName) {
+    public static List<Account> getExpenses(String Name) {
         List<Account> acc = new List<Account>();
-        if (accName == null || accName ==''){
-            acc = [SELECT Id, AccountNumber 
+        if (Name == null || Name ==''){
+            acc = [SELECT Id, Name, AccountNumber, NumberOfEmployees, Fax, Industry 
                 FROM Account];
         }else {
-            acc = [SELECT Id, AccountNumber 
-                FROM Account where Name = :accName];
+            acc = [SELECT Id, Name, AccountNumber, NumberOfEmployees, Fax, Industry
+                FROM Account where Name = :Name];
         }
         return acc;
     }
