@@ -1,7 +1,10 @@
-<aura:component description="TestListForm" controller="ExpensesController">
+<aura:component controller="ExpensesController">
         <!-- CREATE NEW EXPENSE -->
-    <aura:attribute name="expenses" type="List"/>
+    
+    <aura:attribute name="data" type="Account[]"/>
     <aura:attribute name="accname" type="String"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <div aria-labelledby="newexpenseform">
         <!-- BOXED AREA -->
         <h1>Get information about Account</h1>
@@ -18,57 +21,15 @@
                               variant="brand"
                               onclick="{!c.doInit}"/>
              <div class="table">
+                 <lightning:datatable data="{! v.data }"
+                                      keyField="id"
+                                      columns="{! v.columns }"
+                                      hideCheckboxColumn="true"/>
 
-			<table >
-                    
-                        <caption>Account information</caption>
-                    <tr>
-                        <th>
-                            Id
-                        </th>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Account number
-                        </th>
-                        <th>
-                            Number Of Employees
-                        </th>
-                        <th>
-                            Fax
-                        </th>
-                        <th>
-                            Industry
-                        </th>
-                    </tr>
-
-                    <aura:iteration items="{!v.expenses}" var="acc">
-                    <tr >
-                        <td label="Id">
-                            {!acc.Id}
-                        </td>
-                        <td label="Name">
-                            {!acc.Name}
-                        </td>
-
-                        <td label="Account Number">
-                            {!acc.AccountNumber}
-                        </td>
-                        <td label="Number Of Employees">
-                            {!acc.NumberOfEmployees}
-                        </td>
-                        <td label="Fax">
-                            {!acc.Fax}
-                        </td>
-                        <td label="Industry">
-                            {!acc.Industry}
-                        </td>
-
-                    </tr>
-                    </aura:iteration>
-                    
-                </table>
+                 
+      
+                 
+            
             </div>
             
         </form>
